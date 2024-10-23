@@ -4,13 +4,15 @@
 <!-- TOC --><a name="specifikace-softwarových-poadavk-pro-restproject"></a>
 # Specifikace softwarových požadavků pro RestProject
 
-Verze 2.2
+Verze 2.2.1
 
 Připravil: Kryštof Kubín
 
 Datum: 23.10.2024
 
 Kontakty: kubin.kr.2021@skola.ssps.cz
+
+## Obsah
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
