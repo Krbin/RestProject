@@ -1,6 +1,7 @@
+
 # Specifikace softwarových požadavků pro RestProject
 
-Verze 2.0
+Verze 2.1
 
 Připravil: Kryštof Kubín
 
@@ -8,66 +9,44 @@ Datum: 23.10.2024
 
 Kontakty: kubin.kr.2021@skola.ssps.cz
 
-Obsah
+## Obsah
 
-1. Úvod
-
- - 1.1 Účel
-  
- - 1.2 Konvence dokumentu
-  
+#### 1. Úvod
+ -  1.1 Účel 
+ - 1.2 Konvence dokumentu 
  - 1.3 Zamýšlené publikum a doporučení ke čtení
-  
  - 1.4 Rozsah produktu
-  
  - 1.5 Odkazy
 
-2. Celkový popis
-  
+#### 2. Celkový popis
  - 2.1 Perspektiva produktu
-  
  - 2.2 Funkce produktu
-  
  - 2.3 Třídy a charakteristiky uživatelů
-  
  - 2.4 Provozní prostředí
-  
  - 2.5 Omezení návrhu a implementace
-  
  - 2.6 Dokumentace pro uživatele
-  
  - 2.7 Předpoklady a závislosti
 
-3. Požadavky na externí rozhraní
-
+#### 3. Požadavky na externí rozhraní
  - 3.1 Uživatelská rozhraní
-  
  - 3.2 Hardwarová rozhraní
-  
  - 3.3 Softwarová rozhraní
-  
  - 3.4 Komunikační rozhraní
 
-4. Systémové funkce
-  
+#### 4. Systémové funkce
  - 4.1 Získávání a zobrazování obrázků
-  
  - 4.2 Funkce překladu a vyhledávání
-  
  - 4.3 Sdílení obrázků
 
-5. Nefunkční požadavky
-
+#### 5. Nefunkční požadavky
  - 5.1 Požadavky na výkon
-  
  - 5.2 Požadavky na bezpečnost
-  
  - 5.3 Požadavky na zabezpečení
-  
  - 5.4 Kvalitativní atributy softwaru
 
-6. Ostatní požadavky
-
+#### 6. Ostatní požadavky
+&nbsp;
+&nbsp;
 ## 1. Úvod
 
 ### 1.1 Účel
@@ -87,10 +66,6 @@ Nefunkční požadavky jsou specifikovány odděleně a používají kvantifikov
 Tento dokument je určen pro:
 
 Vývojáře: Pro usnadnění implementace.
-
-Projektové manažery: Pro sledování rozsahu projektu.
-
-Testery: Pro ověřování systémových funkcí.
 
 Konečné uživatele: Pro pochopení funkčnosti aplikace.
 
@@ -135,8 +110,6 @@ Nadšenci do vesmíru: Hlavní cílová skupina, zajímající se o obsah souvis
 
 Mobilní platforma: operační systém Android.
 
-Cílové verze Androidu: verze 8.0 (Oreo) a novější.
-
 ### 2.5 Omezení návrhu a implementace
 
 Bezpečné uložení API klíčů (NASA APOD, Google Translate).
@@ -150,8 +123,6 @@ Překlady budou poskytovány prostřednictvím Google Translate API.
 Aplikace bude zahrnovat následující dokumentaci:
 
 Vestavěné nápovědní funkce.
-
-Uživatelská příručka pokrývající funkce získávání obrázků, překladu, vyhledávání a sdílení.
 
 ### 2.7 Předpoklady a závislosti
 
@@ -257,4 +228,4 @@ Aplikace musí být snadno udržovatelná, umožňující jednoduché aktualizac
 
 ## 6. Ostatní požadavky
 
-Lokální úložiště prostřednictvím SQLite by mělo zajistit offline přístup k obrázkům a překladům.
+Lokální úložiště prostřednictvím SQLite by mělo zajistit offline přístup k obrázkům a překladům.# Specifikace softwarových požadavků pro RestProject
