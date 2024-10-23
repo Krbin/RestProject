@@ -1,134 +1,260 @@
-# Specifikace softwarových požadavků (SRS) pro RestProject
+# Specifikace softwarových požadavků pro RestProject
 
-Verze: 1.0
+Verze 2.0
 
-Datum: 20. října 2024
+Připravil: Kryštof Kubín
 
-Autor: Kryštof Kubín
+Datum: 23.10.2024
 
 Kontakty: kubin.kr.2021@skola.ssps.cz
 
+Obsah
+
+1. Úvod
+
+ - 1.1 Účel
+  
+ - 1.2 Konvence dokumentu
+  
+ - 1.3 Zamýšlené publikum a doporučení ke čtení
+  
+ - 1.4 Rozsah produktu
+  
+ - 1.5 Odkazy
+
+2. Celkový popis
+  
+ - 2.1 Perspektiva produktu
+  
+ - 2.2 Funkce produktu
+  
+ - 2.3 Třídy a charakteristiky uživatelů
+  
+ - 2.4 Provozní prostředí
+  
+ - 2.5 Omezení návrhu a implementace
+  
+ - 2.6 Dokumentace pro uživatele
+  
+ - 2.7 Předpoklady a závislosti
+
+3. Požadavky na externí rozhraní
+
+ - 3.1 Uživatelská rozhraní
+  
+ - 3.2 Hardwarová rozhraní
+  
+ - 3.3 Softwarová rozhraní
+  
+ - 3.4 Komunikační rozhraní
+
+4. Systémové funkce
+  
+ - 4.1 Získávání a zobrazování obrázků
+  
+ - 4.2 Funkce překladu a vyhledávání
+  
+ - 4.3 Sdílení obrázků
+
+5. Nefunkční požadavky
+
+ - 5.1 Požadavky na výkon
+  
+ - 5.2 Požadavky na bezpečnost
+  
+ - 5.3 Požadavky na zabezpečení
+  
+ - 5.4 Kvalitativní atributy softwaru
+
+6. Ostatní požadavky
+
 ## 1. Úvod
+
 ### 1.1 Účel
 
-Cílem projektu je vytvořit multiplatformní aplikaci v .NET MAUI, která zobrazí obrázky z NASA Astronomy Picture of the Day (APOD) API. Obrázky budou organizovány podle roků a měsíců. Každý obrázek bude mít přeložené vysvětlení do češtiny, které bude možné vyhledávat pomocí klíčových slov, dat, a dalších parametrů. Uživatelé budou mít možnost sdílet obrázky prostřednictvím nativních sdílecích funkcí zařízení (e-mail, sociální sítě).
+Účelem projektu "RestProject" je vyvinout mobilní aplikaci pro Android, která získává, překládá, organizuje a zobrazuje obrázky z NASA Astronomy Picture of the Day (APOD). Rozsah zahrnuje české překlady vysvětlení obrázků a vyhledávací funkce, přičemž aplikace podporuje sdílení obrázků prostřednictvím nativních funkcí zařízení s Androidem.
 
-### 1.2 Rozsah projektu
+### 1.2 Konvence dokumentu
 
-Aplikace bude poskytovat přístup k obrázkům NASA APOD prostřednictvím jejich API a bude organizovat obrázky podle let a měsíců. Přeložená vysvětlení obrázků budou ukládána do databáze, což umožní jejich efektivní vyhledávání podle různých kritérií, včetně jména obrázku, data nebo klíčových slov ve vysvětlení. Překlad vysvětlení bude automatizován pomocí Google Translate API. Uživatelé budou mít možnost sdílet obrázky pomocí funkcí svého zařízení.
+Tato SRS používá následující konvence:
 
-### 1.3 Cílová skupina
+Funkční požadavky jsou označeny jako REQ-x.
 
-Projekt je určen pro širokou veřejnost, zejména pro zájemce o vesmír a astronomii, kteří chtějí objevovat a sdílet obrázky NASA APOD s českými vysvětleními. Aplikace bude přístupná na více platformách (mobilní a desktopové) a nabídne jednoduché a intuitivní uživatelské rozhraní.
+Nefunkční požadavky jsou specifikovány odděleně a používají kvantifikovatelné termíny.
 
-### 1.4 Definice a zkratky
+### 1.3 Zamýšlené publikum a doporučení ke čtení
 
-NASA APOD: NASA Astronomy Picture of the Day, denní snímek z vesmíru s odborným vysvětlením.
+Tento dokument je určen pro:
 
-API: Application Programming Interface, rozhraní pro přístup k funkcím a datům systému.
+Vývojáře: Pro usnadnění implementace.
 
-Google Translate API: Rozhraní pro automatický překlad textů.
+Projektové manažery: Pro sledování rozsahu projektu.
 
-.NET MAUI: Multiplatformní vývojové prostředí od Microsoftu, které umožňuje vývoj aplikací pro mobilní zařízení a desktopy z jednoho kódu.
+Testery: Pro ověřování systémových funkcí.
 
-SRS: Specifikace softwarových požadavků.
+Konečné uživatele: Pro pochopení funkčnosti aplikace.
+
+### 1.4 Rozsah produktu
+
+Aplikace bude získávat obrázky APOD od NASA, organizovat je podle roku a měsíce, překládat vysvětlení do češtiny a umožní vyhledávání obrázků. Aplikace bude dostupná na zařízeních s Androidem a nabídne nativní možnosti sdílení.
+
+### 1.5 Odkazy 
+Dokumentace NASA APOD API.
+
+Dokumentace Google Translate API.
+
+Dokumentace SQLite Database API.
 
 ## 2. Celkový popis
-### 2.1 Produkt jako celek
 
-Aplikace bude vytvořena v .NET MAUI. Získávání obrázků proběhne prostřednictvím NASA APOD API. Obrázky budou přístupné prostřednictvím intuitivního uživatelského rozhraní, rozděleného podle let a měsíců. Vysvětlení k obrázkům budou automaticky překládána do češtiny a uložena v lokální databázi, čímž se umožní rychlé vyhledávání. K dispozici bude také možnost sdílet obrázky přes nativní sdílecí rozhraní jednotlivých zařízení.
+### 2.1 Perspektiva produktu
 
-### 2.2 Uživatelské skupiny
+Toto je nová aplikace pro Android, zaměřená na nadšence do vesmíru i širokou veřejnost. Aplikace získává data z NASA APOD API a integruje překlady pomocí Google Translate API.
 
-Běžní uživatelé: Uživatelé s obecným zájmem o astronomii, kteří chtějí prohlížet, hledat a sdílet obrázky z NASA APOD.
+### 2.2 Funkce produktu
 
-### 2.3 Provozní prostředí
+Získávání obrázků a vysvětlení APOD od NASA.
 
-Platforma: Aplikace je určena předně pro platformu Android.
+Organizace obrázků podle roku a měsíce.
 
-Databáze: Lokální databáze SQLite pro ukládání přeložených vysvětlení obrázků a dalších informací.
+Překlad vysvětlení obrázků do češtiny.
 
-## 3. Požadavky na rozhraní
-### 3.1 Uživatelské rozhraní
+Vyhledávání obrázků podle data, názvu nebo klíčových slov.
 
-Hlavní obrazovka: Uživatel bude mít přístup k přehledu obrázků organizovaných podle roků a měsíců. Po výběru měsíce se zobrazí seznam obrázků s jejich náhledy a základními informacemi.
+Sdílení obrázků prostřednictvím nativních funkcí Androidu.
 
-Detail obrázku: Po kliknutí na obrázek se zobrazí jeho detail s plnou verzí obrázku a přeloženým vysvětlením.
+Ukládání přeložených vysvětlení a metadat pro offline přístup.
 
-Vyhledávání: Na hlavní obrazovce bude vyhledávací pole, které umožní hledání obrázků podle jména, data nebo klíčových slov.
+### 2.3 Třídy a charakteristiky uživatelů
 
-Sdílecí funkce: Na detailní stránce obrázku bude tlačítko pro sdílení, které umožní sdílet obrázek prostřednictvím nativních funkcí zařízení (např. e-mail, sociální sítě).
+Nadšenci do vesmíru: Hlavní cílová skupina, zajímající se o obsah související s vesmírem.
 
-### 3.2 Softwarová rozhraní
+Široká veřejnost: Uživatelé s minimálními technickými znalostmi, hledající snadný přístup k informacím a médiím.
 
-NASA APOD API: Pro získání obrázků a jejich vysvětlení.
+### 2.4 Provozní prostředí
 
-Google Translate API: Pro automatický překlad vysvětlení obrázků z angličtiny do češtiny.
+Mobilní platforma: operační systém Android.
 
-SQLite databáze: Lokální databáze pro ukládání přeložených vysvětlení a metadat obrázků (rok, měsíc, název, klíčová slova).
+Cílové verze Androidu: verze 8.0 (Oreo) a novější.
 
-## 4. Vlastnosti systému
-### 4.1 Multiplatformní podpora v .NET MAUI
+### 2.5 Omezení návrhu a implementace
 
-Aplikace bude vyvíjena v .NET MAUI, což umožní jednorázový vývoj s možností nasazení na více platformách.
+Bezpečné uložení API klíčů (NASA APOD, Google Translate).
 
-Popis: Multiplatformní aplikace s jedním sdíleným kódem, což minimalizuje náklady na vývoj a údržbu.
+SQLite bude použit pro lokální ukládání obrázků a překladů.
 
-Důležitost: Zajišťuje dosažitelnost aplikace pro široké spektrum uživatelů, bez ohledu na platformu, kterou používají.
+Překlady budou poskytovány prostřednictvím Google Translate API.
 
-Podpora zařízení: Aplikace bude optimalizována pro různé formáty obrazovky, včetně mobilních telefonů, tabletů a desktopů.
+### 2.6 Dokumentace pro uživatele
 
-### 4.2 Organizace obrázků podle roků a měsíců
+Aplikace bude zahrnovat následující dokumentaci:
 
-Obrázky získané z NASA APOD budou organizovány podle roků a měsíců, což uživatelům umožní snadné procházení historických snímků.
+Vestavěné nápovědní funkce.
 
-Popis: Obrázky budou rozděleny do kategorií podle roků a měsíců. Uživatel bude moci vybrat konkrétní rok a měsíc, aby zobrazil všechny obrázky za dané období.
+Uživatelská příručka pokrývající funkce získávání obrázků, překladu, vyhledávání a sdílení.
 
-Důležitost: Zajišťuje strukturovaný a snadno navigovatelný přístup k velkému množství obrázků.
+### 2.7 Předpoklady a závislosti
 
-Vizualizace: Každý měsíc bude reprezentován jako dlaždice s přehledem obrázků včetně náhledů a základních informací.
+Předpokládá se spolehlivé internetové připojení pro získávání obrázků a překlad.
 
-### 4.3 Přeložená vysvětlení obrázků pomocí Google Translate API
+Aplikace je závislá na dostupnosti NASA APOD API a Google Translate API.
 
-Každé vysvětlení k obrázku bude automaticky přeloženo do češtiny pomocí Google Translate API a uloženo v lokální databázi.
+## 3. Požadavky na externí rozhraní
 
-Popis: Vysvětlení k obrázkům z NASA APOD jsou původně v angličtině. Aplikace zajistí jejich automatický překlad do češtiny pomocí Google Translate API, přičemž přeložený text bude uložen v databázi a bude použit pro vyhledávání a zobrazování.
+### 3.1 Uživatelská rozhraní
 
-Důležitost: Překlad do češtiny umožňuje českým uživatelům lépe porozumět odborným vysvětlením.
+Jednoduché a intuitivní rozhraní pro procházení obrázků.
 
-Aktualizace: Překlad se bude aktualizovat při přidání nových obrázků.
+Organizované karty podle roku a měsíce pro procházení obrázků.
 
-### 4.4 Vyhledávací funkce na základě jména, data a klíčových slov
+Vyhledávací funkce integrovaná do rozhraní pro snadný přístup.
 
-Aplikace umožní vyhledávat obrázky na základě různých parametrů, jako je jméno, datum a klíčová slova ve vysvětlení.
+### 3.2 Hardwarová rozhraní
 
-Popis: Uživatelé budou mít možnost zadávat do vyhledávacího pole klíčová slova, jména nebo data a rychle najít obrázky, které odpovídají zadaným kritériím.
+Aplikace bude interagovat s funkcemi zařízení s Androidem pro sdílení obrázků, ukládání a přístup k síti.
 
-Důležitost: Rychlé a efektivní vyhledávání umožní uživatelům snadnou navigaci mezi velkým množstvím obrázků.
+### 3.3 Softwarová rozhraní
 
-### 4.5 Nativní sdílecí funkce zařízení
+NASA APOD API pro získávání obrázků.
 
-Aplikace poskytne možnost sdílení obrázků prostřednictvím vestavěných sdílecích funkcí zařízení.
+Google Translate API pro překlad vysvětlení obrázků.
 
-Popis: Uživatel bude moci sdílet obrázky přes sociální sítě, e-mail nebo jiné aplikace nainstalované na jeho zařízení.
+SQLite pro lokální ukládání dat.
 
-Důležitost: Umožňuje uživatelům snadno sdílet zajímavé obrázky s ostatními, což zvyšuje angažovanost a šíření obsahu.
+### 3.4 Komunikační rozhraní
 
-### 4.6 Lokální databáze SQLite
+Aplikace bude používat HTTPS pro zabezpečenou komunikaci s externími API.
 
-Aplikace bude ukládat přeložená vysvětlení a metadata obrázků v lokální databázi SQLite pro offline přístup a rychlejší zobrazení.
+## 4. Systémové funkce
 
-Popis: Všechna data (přeložená vysvětlení, informace o obrázcích, klíčová slova) budou uložena v lokální databázi na zařízení uživatele.
+### 4.1 Získávání a zobrazování obrázků
 
-Důležitost: Databáze umožní rychlé vyhledávání a prohlížení obrázků i při dočasném přerušení internetového připojení.
+### 4.1.1 Popis a priorita
+
+Aplikace získává denní obrázky NASA APOD a organizuje je podle roku a měsíce (Priorita: Vysoká).
+
+### 4.1.2 Sekvence podnětů a odpovědí
+
+Podnět: Uživatel otevře aplikaci a vybere konkrétní rok a měsíc.
+
+Odpověď: Aplikace získá obrázky a zobrazí je spolu s přeloženými vysvětleními.
+
+### 4.1.3 Funkční požadavky
+
+REQ-1: Aplikace musí získávat obrázky z NASA APOD API.
+
+REQ-2: Aplikace musí organizovat obrázky podle roku a měsíce.
+
+### 4.2 Funkce překladu a vyhledávání
+
+### 4.2.1 Popis a priorita
+
+Aplikace poskytuje automatické překlady vysvětlení obrázků do češtiny a umožňuje vyhledávání podle názvu, data nebo klíčových slov (Priorita: Vysoká).
+
+### 4.2.2 Sekvence podnětů a odpovědí
+
+Podnět: Uživatel vyhledává obrázek podle klíčového slova.
+
+Odpověď: Aplikace zobrazí relevantní obrázky na základě vyhledávacího termínu.
+
+### 4.2.3 Funkční požadavky
+
+REQ-3: Aplikace musí poskytovat české překlady pomocí Google Translate API.
+
+REQ-4: Aplikace musí podporovat vyhledávání obrázků podle názvu, data nebo klíčového slova.
+
+### 4.3 Sdílení obrázků
+
+### 4.3.1 Popis a priorita
+
+Aplikace umožňuje uživatelům sdílet obrázky prostřednictvím nativních sdílecích funkcí Androidu (Priorita: Střední).
+
+### 4.3.2 Funkční požadavky
+
+REQ-5: Aplikace musí umožňovat sdílení obrázků prostřednictvím e-mailu a sociálních sítí pomocí nativních funkcí sdílení Androidu.
 
 ## 5. Nefunkční požadavky
-### 5.1 Výkonnostní požadavky
 
-Rychlost odezvy: Aplikace musí načítat obrázky a vysvětlení do 5 sekund při stabilním připojení.
+### 5.1 Požadavky na výkon
 
-Paměťové nároky: Aplikace by měla efektivně nakládat s pamětí, aby byla vhodná i pro zařízení s nižšími technickými specifikacemi.
+Aplikace musí načítat obrázky do 5 sekund.
 
-### 5.2 Bezpečnostní požadavky
+Aplikace musí být optimalizována pro paměť na zařízeních s nižším výkonem.
 
-Ochrana API klíčů: Přístup k NASA APOD API a Google Translate API musí být chráněn prostřednictvím bezpečnostních klíčů, které nebudou dostupné uživatelům.
+### 5.2 Požadavky na bezpečnost
+
+Nepoužitelné.
+
+### 5.3 Požadavky na zabezpečení
+
+Aplikace musí bezpečně nakládat s API klíči NASA APOD a Google Translate.
+
+### 5.4 Kvalitativní atributy softwaru
+
+Aplikace musí být spolehlivá, s minimálními výpadky.
+
+Aplikace musí být snadno udržovatelná, umožňující jednoduché aktualizace překladu a logiky API.
+
+## 6. Ostatní požadavky
+
+Lokální úložiště prostřednictvím SQLite by mělo zajistit offline přístup k obrázkům a překladům.
