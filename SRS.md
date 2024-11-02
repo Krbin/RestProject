@@ -4,7 +4,7 @@
 <!-- TOC --><a name="specifikace-softwarových-poadavk-pro-restproject"></a>
 # Specifikace softwarových požadavků pro RestProject
 
-Verze 2.4
+Verze 2.4.1
 
 Připravil: Kryštof Kubín
 
@@ -21,6 +21,7 @@ Kontakty: kubin.kr.2021@skola.ssps.cz
 |SRS 2.2|Kryštof Kubín|
 |SRS 2.3|Kryštof Kubín|
 |SRS 2.4|Kryštof Kubín|
+|SRS 2.4.1|Kryštof Kubín|
 
 ## Obsah
 
@@ -80,7 +81,7 @@ Kontakty: kubin.kr.2021@skola.ssps.cz
 
 Tato SRS používá následující konvence:
 
-Funkční požadavky jsou označeny jako REQ-x.
+Funkční požadavky jsou označeny jako **REQ-x.
 
 Nefunkční požadavky jsou specifikovány odděleně a používají kvantifikovatelné termíny.
 
@@ -233,14 +234,14 @@ Odpověd: Aplikace získá obrázky a zobrazí je spolu s přeloženými vysvět
 <!-- TOC --><a name="413-funkní-poadavky"></a>
 #### 4.1.3 Funkční požadavky
 
-REQ-1.0: Aplikace musí získávat obrázky z NASA APOD API.
+**REQ-1.0**: Aplikace musí získávat obrázky z NASA APOD API.
  - **Priorita**: Vysoká, **Urgence**: Vysoká
 
 
-REQ-2.0: Aplikace musí zobrazit všechny obrázky v daném měsíci.
+**REQ-2.0**: Aplikace musí zobrazit všechny obrázky v daném měsíci.
  - **Priorita**: Vysoká, **Urgence**: Střední
 
-REQ-2.1: Aplikace musí zobrazit poslední obrázek v daném roce nebo měsíci na "kartě". 
+**REQ-2.1**: Aplikace musí zobrazit poslední obrázek v daném roce nebo měsíci na "kartě". 
  - **Priorita**: Vysoká, **Urgence**: Vysoká
 
 <!-- TOC --><a name="42-funkce-pekladu-a-vyhledávání"></a>
@@ -268,13 +269,13 @@ Odpověď: Aplikace zobrazí relevantní obrázky na základě vyhledávacího t
 <!-- TOC --><a name="423-funkní-poadavky"></a>
 #### 4.2.3 Funkční požadavky
 
-REQ-3.0: Aplikace musí poskytovat české překlady pomocí Google Translate API.
+**REQ-3.0**: Aplikace musí poskytovat české překlady pomocí Google Translate API.
  - **Priorita**: Vysoká, **Urgence**: Nízká
 
-REQ-3.1: Aplikace musí skladovat české překlady v databázi.
+**REQ-3.1**: Aplikace musí skladovat české překlady v databázi.
  - **Priorita**: Vysoká, **Urgence**: Střední
 
-REQ-4.0: Aplikace musí podporovat vyhledávání obrázků podle názvu, data nebo klíčového slova.
+**REQ-4.0**: Aplikace musí podporovat vyhledávání obrázků podle názvu, data nebo klíčového slova.
  - **Priorita**: Střední, **Urgence**: Nízká
 
 
@@ -292,7 +293,7 @@ Aplikace umožňuje uživatelům sdílet obrázky prostřednictvím nativních s
 <!-- TOC --><a name="432-funkní-poadavky"></a>
 #### 4.3.2 Funkční požadavky
 
-REQ-5.0: Aplikace musí umožňovat sdílení obrázků prostřednictvím e-mailu a sociálních sítí pomocí nativních funkcí sdílení Androidu.
+**REQ-5.0**: Aplikace musí umožňovat sdílení obrázků prostřednictvím e-mailu a sociálních sítí pomocí nativních funkcí sdílení Androidu.
  - **Priorita**: Střední, **Urgence**: Nízká
 
 <!-- TOC --><a name="5-nefunkní-poadavky"></a>
