@@ -198,6 +198,7 @@ Aplikace bude používat HTTPS pro zabezpečenou komunikaci s externími API.
 <!-- TOC --><a name="4-systémové-funkce"></a>
 ## 4. Systémové funkce
 
+
  - **4.1 Získávání a zobrazování obrázků**
 
  - **4.2 Funkce překladu a vyhledávání**
@@ -234,6 +235,7 @@ Odpověd: Aplikace získá obrázky a zobrazí je spolu s přeloženými vysvět
 
 REQ-1.0: Aplikace musí získávat obrázky z NASA APOD API.
  - **Priorita**: Vysoká, **Urgence**: Vysoká
+
 
 REQ-2.0: Aplikace musí zobrazit všechny obrázky v daném měsíci.
  - **Priorita**: Vysoká, **Urgence**: Střední
