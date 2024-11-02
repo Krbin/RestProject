@@ -4,13 +4,23 @@
 <!-- TOC --><a name="specifikace-softwarových-poadavk-pro-restproject"></a>
 # Specifikace softwarových požadavků pro RestProject
 
-Verze 2.2.2
+Verze 2.4
 
 Připravil: Kryštof Kubín
 
 Datum: 23.10.2024
 
 Kontakty: kubin.kr.2021@skola.ssps.cz
+
+## Historie verzí
+|Verze|Autor|
+|--|--|
+|SRS 1.0|Kryštof Kubín|
+|SRS 2.0|Kryštof Kubín|
+|SRS 2.1|Kryštof Kubín|
+|SRS 2.2|Kryštof Kubín|
+|SRS 2.3|Kryštof Kubín|
+|SRS 2.4|Kryštof Kubín|
 
 ## Obsah
 
@@ -188,11 +198,12 @@ Aplikace bude používat HTTPS pro zabezpečenou komunikaci s externími API.
 <!-- TOC --><a name="4-systémové-funkce"></a>
 ## 4. Systémové funkce
 
-**4.1 Získávání a zobrazování obrázků**
 
-**4.2 Funkce překladu a vyhledávání**
+ - **4.1 Získávání a zobrazování obrázků**
 
-**4.3 Sdílení obrázků**
+ - **4.2 Funkce překladu a vyhledávání**
+
+ - **4.3 Sdílení obrázků**
 
 
 
@@ -225,6 +236,7 @@ Odpověd: Aplikace získá obrázky a zobrazí je spolu s přeloženými vysvět
 REQ-1.0: Aplikace musí získávat obrázky z NASA APOD API.
  - **Priorita**: Vysoká, **Urgence**: Vysoká
 
+
 REQ-2.0: Aplikace musí zobrazit všechny obrázky v daném měsíci.
  - **Priorita**: Vysoká, **Urgence**: Střední
 
@@ -245,7 +257,11 @@ Aplikace poskytuje automatické překlady vysvětlení obrázků do češtiny a 
 <!-- TOC --><a name="422-sekvence-podnt-a-odpovdí"></a>
 #### 4.2.2 Sekvence podnětů a odpovědí
 
-Podnět: Uživatel vyhledává obrázek podle klíčového slova.
+Podnět: Uživatel otevře vyhledávání
+
+Odpověď: Aplikace zobrazí vyhlédavající lištu a klávesnici.
+
+Podněť: Uživatel vyhledává obrázek podle klíčového slova.
 
 Odpověď: Aplikace zobrazí relevantní obrázky na základě vyhledávacího termínu.
 
