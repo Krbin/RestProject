@@ -4,7 +4,7 @@
 <!-- TOC --><a name="specifikace-softwarových-poadavk-pro-restproject"></a>
 # Specifikace softwarových požadavků pro RestProject
 
-Verze 2.3
+Verze 2.4
 
 Připravil: Kryštof Kubín
 
@@ -20,6 +20,7 @@ Kontakty: kubin.kr.2021@skola.ssps.cz
 |SRS 2.1|Kryštof Kubín|
 |SRS 2.2|Kryštof Kubín|
 |SRS 2.3|Kryštof Kubín|
+|SRS 2.4|Kryštof Kubín|
 
 ## Obsah
 
@@ -197,17 +198,11 @@ Aplikace bude používat HTTPS pro zabezpečenou komunikaci s externími API.
 <!-- TOC --><a name="4-systémové-funkce"></a>
 ## 4. Systémové funkce
 
-### 4.1 Získávání a zobrazování obrázků
+ - **4.1 Získávání a zobrazování obrázků**
 
+ - **4.2 Funkce překladu a vyhledávání**
 
-
-
-### 4.2 Funkce překladu a vyhledávání
-
-#### 4.2.1 Popis, priorita a urgence
-
-
-### 4.3 Sdílení obrázků
+ - **4.3 Sdílení obrázků**
 
 
 
@@ -218,7 +213,7 @@ Aplikace bude používat HTTPS pro zabezpečenou komunikaci s externími API.
 
 #### 4.1.1 Popis, priorita a urgence
 
-Aplikace získává denní obrázky NASA APOD a organizuje je podle roku a měsíce.
+Aplikace získává denní obrázky NASA APOD a organizuje je podle roku a měsíce. Tyto obrázky jsou rozděleny do "karet" které zobrazují poslední obrázek v daném roce nebo měsíci.
 
 -   **Priorita**: Vysoká
 -   **Urgence**: Kritická, implementace nezbytná pro základní funkčnost aplikace.
@@ -226,16 +221,25 @@ Aplikace získává denní obrázky NASA APOD a organizuje je podle roku a měs�
 <!-- TOC --><a name="412-sekvence-podnt-a-odpovdí"></a>
 #### 4.1.2 Sekvence podnětů a odpovědí
 
-Podnět: Uživatel otevře aplikaci a vybere konkrétní rok a měsíc.
+Podnět: Uživatel otevře aplikaci a vybere "kartu" konkrétní roku.
 
-Odpověď: Aplikace získá obrázky a zobrazí je spolu s přeloženými vysvětleními.
+Odpověď: Aplikace zobrazí "karty" měsíců a poslední obrázek v každém měsíci.
+
+Podnět: Uživatel otevře "kartu" měsíce.
+
+Odpověd: Aplikace získá obrázky a zobrazí je spolu s přeloženými vysvětleními.
 
 <!-- TOC --><a name="413-funkní-poadavky"></a>
 #### 4.1.3 Funkční požadavky
 
-REQ-1: Aplikace musí získávat obrázky z NASA APOD API.
+REQ-1.0: Aplikace musí získávat obrázky z NASA APOD API.
+ - **Priorita**: Vysoká, **Urgence**: Vysoká
 
-REQ-2: Aplikace musí organizovat obrázky podle roku a měsíce.
+REQ-2.0: Aplikace musí zobrazit všechny obrázky v daném měsíci.
+ - **Priorita**: Vysoká, **Urgence**: Střední
+
+REQ-2.1: Aplikace musí zobrazit poslední obrázek v daném roce nebo měsíci na "kartě". 
+ - **Priorita**: Vysoká, **Urgence**: Vysoká
 
 <!-- TOC --><a name="42-funkce-pekladu-a-vyhledávání"></a>
 ### 4.2 Funkce překladu a vyhledávání
@@ -246,21 +250,31 @@ REQ-2: Aplikace musí organizovat obrázky podle roku a měsíce.
 Aplikace poskytuje automatické překlady vysvětlení obrázků do češtiny a umožňuje vyhledávání podle názvu, data nebo klíčových slov.
 
 -   **Priorita**: Vysoká
--   **Urgence**: Vysoká, nutné pro usnadnění používání českým publikem.
+-   **Urgence**: Střední, nutné pro usnadnění používání českým publikem.
 
 <!-- TOC --><a name="422-sekvence-podnt-a-odpovdí"></a>
 #### 4.2.2 Sekvence podnětů a odpovědí
 
-Podnět: Uživatel vyhledává obrázek podle klíčového slova.
+Podnět: Uživatel otevře vyhledávání
+
+Odpověď: Aplikace zobrazí vyhlédavající lištu a klávesnici.
+
+Podněť: Uživatel vyhledává obrázek podle klíčového slova.
 
 Odpověď: Aplikace zobrazí relevantní obrázky na základě vyhledávacího termínu.
 
 <!-- TOC --><a name="423-funkní-poadavky"></a>
 #### 4.2.3 Funkční požadavky
 
-REQ-3: Aplikace musí poskytovat české překlady pomocí Google Translate API.
+REQ-3.0: Aplikace musí poskytovat české překlady pomocí Google Translate API.
+ - **Priorita**: Vysoká, **Urgence**: Nízká
 
-REQ-4: Aplikace musí podporovat vyhledávání obrázků podle názvu, data nebo klíčového slova.
+REQ-3.1: Aplikace musí skladovat české překlady v databázi.
+ - **Priorita**: Vysoká, **Urgence**: Střední
+
+REQ-4.0: Aplikace musí podporovat vyhledávání obrázků podle názvu, data nebo klíčového slova.
+ - **Priorita**: Střední, **Urgence**: Nízká
+
 
 <!-- TOC --><a name="43-sdílení-obrázk"></a>
 ### 4.3 Sdílení obrázků
@@ -276,7 +290,8 @@ Aplikace umožňuje uživatelům sdílet obrázky prostřednictvím nativních s
 <!-- TOC --><a name="432-funkní-poadavky"></a>
 #### 4.3.2 Funkční požadavky
 
-REQ-5: Aplikace musí umožňovat sdílení obrázků prostřednictvím e-mailu a sociálních sítí pomocí nativních funkcí sdílení Androidu.
+REQ-5.0: Aplikace musí umožňovat sdílení obrázků prostřednictvím e-mailu a sociálních sítí pomocí nativních funkcí sdílení Androidu.
+ - **Priorita**: Střední, **Urgence**: Nízká
 
 <!-- TOC --><a name="5-nefunkní-poadavky"></a>
 ## 5. Nefunkční požadavky
