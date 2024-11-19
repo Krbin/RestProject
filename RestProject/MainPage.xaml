@@ -17,6 +17,11 @@
                        CornerRadius="10"
                        HasShadow="True"
                        BorderColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer 
+                    Command="{Binding FrameTappedCommand}" 
+                    CommandParameter="{Binding Year}" />
+                    </Frame.GestureRecognizers>
                     <Grid HeightRequest="200"
                           WidthRequest="200">
                         <!-- Top 2/3: Image -->
