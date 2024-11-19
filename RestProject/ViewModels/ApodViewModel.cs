@@ -14,11 +14,19 @@ namespace RestProject.ViewModels
 {
     public class ApodViewModel : INotifyPropertyChanged
     {
-        private readonly ApodService _apodService;
-        private readonly SqliteService _databaseService;
-
+        private readonly ISqliteService _sqliteService;
+        private ApodModel _apodModel;
         private ObservableCollection<ApodModel> _apodItems;
-        public ObservableCollection<ApodModel> ApodModels
+        public ApodModel apodModel
+        {
+            get => _apodModel;
+            set
+            {
+                _apodModel = value;
+                OnPropertyChanged();
+            }
+        }
+        public ObservableCollection<ApodModel> ApodItems
         {
             get => _apodItems;
             set
@@ -34,34 +42,19 @@ namespace RestProject.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ApodViewModel(ApodService apodService, SqliteService databaseService)
+        public ApodViewModel(ISqliteService sqliteService)
         {
-            _apodService = apodService;
-            _databaseService = databaseService;
-            var ApodModels = new ObservableCollection<ApodModel>();
+            _sqliteService = sqliteService;
+            apodModel = new ApodModel();
+            ApodItems = new ObservableCollection<ApodModel>();
         }
-
-        //public async Task LoadApodDataAsync()
-        //{
-        //    try
-        //    {
-        //        string startDate = "2024-01-01";
-        //        string endDate = "2024-01-31";
-
-        //        await _apodService.FetchAndStoreApodImagesForRange(startDate, endDate);
-
-        //        var allApodModels = await _databaseService.();
-
-        //        ApodModels.Clear();
-        //        foreach (var apod in allApodModels)
-        //        {
-        //            ApodModels.Add(apod);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine($"Error loading APOD data: {ex.Message}");
-        //    }
-        //}
+        private async Task LoadDataAsync()
+        {
+            var apodModels = await _sqliteService.GetAllDataAsync<ApodModel>();
+            foreach (var model in apodModels)
+            {
+                ApodItems.Add(model);
+            }
+        }
     }
 }

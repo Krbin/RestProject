@@ -34,15 +34,22 @@ namespace RestProject.Services
         public async Task<List<ApodModel>> GetApodImages(string startDate, string endDate)
         {
             List<ApodModel> apodImages = new List<ApodModel>();
+            var apodResponses = new List<ApodResponse>();
 
             using (HttpClient client = _httpClient)
             {
                 string url = $"{BaseApiUrl}?api_key={ApiKey}&start_date={startDate}&end_date={endDate}";
                 HttpResponseMessage response = await client.GetAsync(url);
+
+
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    apodImages = JsonConvert.DeserializeObject<List<ApodModel>>(content);
+                    JsonConvert.DeserializeObject<List<ApodResponse>>(content);
+                    foreach (var item in apodResponses)
+                    {
+                        apodImages.Add(CreateModelFromApodResponse(item));
+                    }
                 }
                 else
                 {
@@ -103,7 +110,12 @@ namespace RestProject.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    var apodModels = JsonConvert.DeserializeObject<List<ApodModel>>(content);
+                    var apodResponses = JsonConvert.DeserializeObject<List<ApodResponse>>(content);
+                    var apodModels = new List<ApodModel>();
+                    foreach (var item in apodResponses)
+                    {
+                        apodModels.Add(CreateModelFromApodResponse(item));
+                    }
 
                     await _sqliteService.InsertAllDataAsync(apodModels);
                 }
@@ -117,6 +129,35 @@ namespace RestProject.Services
         public async Task<List<ApodModel>> GetAllApodModelsAsync()
         {
             return await _sqliteService.GetAllDataAsync<ApodModel>(); ;
+        }
+
+        public static ApodModel CreateModelFromApodResponse(ApodResponse resp)
+        {
+            ApodModel output = new ApodModel();
+            output.Copyright = resp.Copyright;
+            output.Date = resp.Date;
+            output.ExplanationEnglish = resp.Explanation;
+            output.HdUrl = resp.HdUrl;
+            output.MediaType = resp.MediaType;
+            output.ServiceVersion = resp.ServiceVersion;
+            output.TitleEnglish = resp.Title;
+            output.Url = resp.Url;
+
+            if (DateTime.TryParse(resp.Date, out DateTime parsedDate))
+            {
+                Func<DateTime, string> getYearAsWords = date => date.ToString("yyyy");
+                Func<DateTime, string> getMonthAsWords = date => date.ToString("MMMM");
+
+                output.Year = getYearAsWords(parsedDate);
+                output.Month = getMonthAsWords(parsedDate);
+            }
+            else
+            {
+                output.Year = "Invalid Date";
+                output.Month = "Invalid Date";
+            }
+
+            return output;
         }
     }
 }

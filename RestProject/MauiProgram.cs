@@ -21,16 +21,15 @@ namespace RestProject
             builder.Services.AddSingleton<ISqliteService, SqliteService>();
             builder.Services.AddSingleton<ApodService>();
 
-            //builder.Services.AddSingleton<MainPage>();
-            //builder.Services.AddSingleton<ApodViewModel>();
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<ApodViewModel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
+            SqliteDatabase.InitializeDatabaseAsync().Wait();
 
-            var build = builder.Build();
-
-            //Task.Delay(1).Wait();
-            return build;
+            return builder.Build();
         }
     }
 }

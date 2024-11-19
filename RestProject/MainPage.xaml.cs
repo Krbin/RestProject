@@ -10,11 +10,12 @@ namespace RestProject
 {
     public partial class MainPage : ContentPage
     {
+        private readonly ISqliteService _sqliteService;
 
-        public MainPage()
+        public MainPage(ISqliteService sqliteService)
         {
             InitializeComponent();
-            SqliteDatabase.InitializeDatabaseAsync().Wait();
+            _sqliteService = sqliteService;
         }
 
     }
