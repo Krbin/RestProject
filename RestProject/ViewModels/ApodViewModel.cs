@@ -1,13 +1,9 @@
-﻿using RestProject.Database;
-using RestProject.Models;
+﻿using RestProject.Models;
 using RestProject.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RestProject.ViewModels
@@ -17,7 +13,8 @@ namespace RestProject.ViewModels
         private readonly ISqliteService _sqliteService;
         private ApodModel _apodModel;
         private ObservableCollection<ApodModel> _apodItems;
-        public ApodModel apodModel
+
+        public ApodModel ApodModel
         {
             get => _apodModel;
             set
@@ -26,6 +23,7 @@ namespace RestProject.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<ApodModel> ApodItems
         {
             get => _apodItems;
@@ -35,6 +33,7 @@ namespace RestProject.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -45,15 +44,25 @@ namespace RestProject.ViewModels
         public ApodViewModel(ISqliteService sqliteService)
         {
             _sqliteService = sqliteService;
-            apodModel = new ApodModel();
+            ApodModel = new ApodModel();
             ApodItems = new ObservableCollection<ApodModel>();
+            _ = LoadDataAsync();
         }
+
         private async Task LoadDataAsync()
         {
-            var apodModels = await _sqliteService.GetAllDataAsync<ApodModel>();
-            foreach (var model in apodModels)
+            try
             {
-                ApodItems.Add(model);
+                var apodModels = await _sqliteService.GetAllDataAsync<ApodModel>();
+                foreach (var model in apodModels)
+                {
+                    ApodItems.Add(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                System.Diagnostics.Debug.WriteLine($"Error loading data: {ex.Message}");
             }
         }
     }

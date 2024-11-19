@@ -1,10 +1,6 @@
-﻿using RestProject.Models;
-using System.Collections.ObjectModel;
+﻿using RestProject.ViewModels;
+using RestProject.Services;
 using Microsoft.Maui.Controls;
-using RestProject.ViewModels;
-using System.Threading.Tasks;
-using RestProject.Database;
-
 
 namespace RestProject
 {
@@ -16,7 +12,7 @@ namespace RestProject
         {
             InitializeComponent();
             _sqliteService = sqliteService;
+            BindingContext = new ApodViewModel(sqliteService);
         }
-
     }
 }
