@@ -1,8 +1,4 @@
-﻿using RestProject.Database;
-using Microsoft.Extensions.Logging;
-using RestProject.Models;
-using RestProject.Services;
-using RestProject.ViewModels;
+﻿using Microsoft.Extensions.Logging;
 
 namespace RestProject
 {

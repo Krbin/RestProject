@@ -1,11 +1,8 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using SQLite;
+﻿using BlazorRestProject.Database;
+using BlazorRestProject.Models;
 using Newtonsoft.Json;
-using RestProject.Models;
-using RestProject.Database;
 
-namespace RestProject.Services
+namespace BlazorRestProject.Services
 {
     public class ApodService
     {

@@ -1,8 +1,5 @@
-﻿using RestProject.ViewModels;
-using RestProject.Services;
-using Microsoft.Maui.Controls;
+﻿using RestProject.Views;
 using System.Windows.Input;
-using RestProject.Views;
 
 namespace RestProject
 {

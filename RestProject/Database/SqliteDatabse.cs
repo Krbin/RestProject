@@ -1,12 +1,7 @@
-﻿using RestProject.Models;
+﻿using BlazorRestProject.Models;
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RestProject.Database
+namespace BlazorRestProject.Database
 {
     public sealed class SqliteDatabase
     {

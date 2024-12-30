@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace RestProject.Models;
+namespace BlazorRestProject.Models;
 
 [Table("apod")]
 public class ApodModel
