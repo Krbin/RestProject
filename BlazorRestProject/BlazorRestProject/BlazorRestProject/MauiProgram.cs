@@ -24,11 +24,12 @@ namespace BlazorRestProject
 
             builder.Services.AddSingleton<ApodViewModel>();
 
+            SQLitePCL.Batteries_V2.Init();
+
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
             builder.Logging.AddDebug();
 #endif
-            SqliteDatabase.InitializeDatabaseAsync().Wait();
 
             return builder.Build();
         }

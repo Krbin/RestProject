@@ -79,7 +79,7 @@ namespace BlazorRestProject.Services
 
             return await GetApodImages(startDate, endDate);
         }
-        public async Task FetchAndStoreApodImagesOfAllTimes()
+         public async Task FetchAndStoreApodImagesOfAllTimes()
         {
             DateTime startDate = new DateTime(1995, 6, 16);
             DateTime endDate = DateTime.UtcNow.Date;
@@ -131,27 +131,27 @@ namespace BlazorRestProject.Services
         public static ApodModel CreateModelFromApodResponse(ApodResponse resp)
         {
             ApodModel output = new ApodModel();
-            //output.Copyright = resp.Copyright;
-            //output.Date = resp.Date;
-            //output.ExplanationEnglish = resp.Explanation;
-            //output.HdUrl = resp.HdUrl;
-            //output.MediaType = resp.MediaType;
-            //output.ServiceVersion = resp.ServiceVersion;
-            //output.TitleEnglish = resp.Title;
-            //output.Url = resp.Url;
+            output.Copyright = resp.Copyright;
+            output.Date = resp.Date;
+            output.ExplanationEnglish = resp.Explanation;
+            output.HdUrl = resp.HdUrl;
+            output.MediaType = resp.MediaType;
+            output.ServiceVersion = resp.ServiceVersion;
+            output.TitleEnglish = resp.Title;
+            output.Url = resp.Url;
 
             if (DateTime.TryParse(resp.Date, out DateTime parsedDate))
             {
                 Func<DateTime, string> getYearAsWords = date => date.ToString("yyyy");
                 Func<DateTime, string> getMonthAsWords = date => date.ToString("MMMM");
 
-                //output.Year = getYearAsWords(parsedDate);
-                //output.Month = getMonthAsWords(parsedDate);
+                output.Year = getYearAsWords(parsedDate);
+                output.Month = getMonthAsWords(parsedDate);
             }
             else
             {
-                //output.Year = "Invalid Date";
-                //output.Month = "Invalid Date";
+                output.Year = "Invalid Date";
+                output.Month = "Invalid Date";
             }
 
             return output;

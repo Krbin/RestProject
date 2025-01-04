@@ -1,42 +1,60 @@
 ﻿using SQLite;
 
-namespace BlazorRestProject.Models;
-
-[Table("apod")]
-public class ApodModel
+namespace BlazorRestProject.Models
 {
-    [PrimaryKey, AutoIncrement]
-    public int Id { get; set; }
 
-    [Indexed, NotNull]
-    public string Date { get; set; }
+    [Table("apod")]
+    public class ApodModel
+    {
+        [PrimaryKey]
+        [AutoIncrement]
+        [Column("id")]
+        public int Id { get; set; }
 
-    [NotNull]
-    public string TitleEnglish { get; set; }
+        [Indexed]
+        [NotNull]
+        [Column("date")]
+        public string Date { get; set; }
 
-    [NotNull]
-    public string ExplanationEnglish { get; set; }
+        [NotNull]
+        [Column ("title_english")]
+        public string TitleEnglish { get; set; }
 
-    public string TitleCzech { get; set; }
+        [NotNull]
+        [Column("explanation_english")]
+        public string ExplanationEnglish { get; set; }
 
-    public string ExplanationCzech { get; set; }
+        [Column("title_czech")]
+        public string TitleCzech { get; set; }
 
-    [NotNull]
-    public string Url { get; set; }
+        [Column("explanation_czech")]
+        public string ExplanationCzech { get; set; }
 
-    public string HdUrl { get; set; }
+        [NotNull]
+        [Column("url")]
+        public string Url { get; set; }
 
-    public string MediaType { get; set; }
+        [Column("hd_url")]
+        public string HdUrl { get; set; }
 
-    public string Copyright { get; set; }
+        [Column("media_type")]
+        public string MediaType { get; set; }
 
-    public string ServiceVersion { get; set; }
+        [Column("copyright")]
+        public string Copyright { get; set; }
 
-    public DateTime DateAdded { get; set; } = DateTime.Now;
+        [Column("service_version")]
+        public string ServiceVersion { get; set; }
 
-    public string Year { get; set; }
+        [Column("date_added")]
+        public DateTime DateAdded { get; set; } = DateTime.Now;
 
-    public string Month { get; set; }
+        [Column("year")]
+        public string Year { get; set; }
+
+        [Column("month")]
+        public string Month { get; set; }
+
+    }
 
 }
-

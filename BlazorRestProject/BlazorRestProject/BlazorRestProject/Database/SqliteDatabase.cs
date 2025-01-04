@@ -51,6 +51,7 @@ namespace BlazorRestProject.Database
                 CreateSharedDatabase(databasePath);
 
 #if DEBUG
+                Trace.WriteLine($"Database instance: {SqliteDatabase.Instance.Database}");
                 Trace.WriteLine("Creating all tables...");
 #endif
                 await Task.Run(async () => await CreateAllTablesAsync());
@@ -70,7 +71,7 @@ namespace BlazorRestProject.Database
 
         private static async Task CreateAllTablesAsync()
         {
-            await SqliteDatabase.Instance.Database.CreateTableAsync<TestModel>();
+            await SqliteDatabase.Instance.Database.CreateTableAsync<ApodModel>();
         }
     }
     public class InstanceNotCreatedException : Exception
