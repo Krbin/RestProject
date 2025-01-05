@@ -1,17 +1,21 @@
 ﻿using BlazorRestProject.Database;
 using BlazorRestProject.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorRestProject
 {
     public partial class App : Application
     {
-        private readonly ApodService _apodService;
-        public App(ApodService apodService)
+        public static IServiceProvider Services { get; private set; }
+        public static  ApodService _apodService;
+        public static ISqliteService _sqliteService;
+        public App(IServiceProvider serviceProvider, ApodService apodService, ISqliteService sqliteService)
         {
-            InitializeComponent();
-            _apodService = apodService;
+            InitializeComponent(); 
+            Services = serviceProvider;
+             _apodService = apodService;
+            _sqliteService = sqliteService;
 
-            SqliteDatabase.InitializeDatabaseAsync();
             Task.Run( async () => { await _apodService.FetchAndStoreApodImagesOfAllTimes(); });
             MainPage = new MainPage();
         }

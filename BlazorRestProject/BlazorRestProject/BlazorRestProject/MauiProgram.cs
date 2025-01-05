@@ -19,6 +19,11 @@ namespace BlazorRestProject
 
             builder.Services.AddMauiBlazorWebView();
 
+
+#if DEBUG
+            builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Logging.AddDebug();
+#endif
             builder.Services.AddSingleton<ISqliteService, SqliteService>();
             builder.Services.AddSingleton<ApodService>();
 
@@ -26,12 +31,15 @@ namespace BlazorRestProject
 
             SQLitePCL.Batteries_V2.Init();
 
-#if DEBUG
-            builder.Services.AddBlazorWebViewDeveloperTools();
-            builder.Logging.AddDebug();
-#endif
+            var app = builder.Build();
+            InitializeDatabse();
 
-            return builder.Build();
+            return app;
+        }
+        
+        private static async void InitializeDatabse()
+        {
+            await SqliteDatabase.InitializeDatabaseAsync();
         }
     }
 }

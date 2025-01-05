@@ -1,7 +1,8 @@
 ﻿using BlazorRestProject.Database;
+
 using BlazorRestProject.Models;
 using Newtonsoft.Json;
-
+using Microsoft.Maui.Storage;
 namespace BlazorRestProject.Services
 {
     public class ApodService
@@ -9,20 +10,33 @@ namespace BlazorRestProject.Services
         private readonly HttpClient _httpClient;
 
         private const string BaseApiUrl = "https://api.nasa.gov/planetary/apod";
+
+        public static async Task<string> LoadConfigAsync()
+        {
+            using var stream = await FileSystem.OpenAppPackageFileAsync("config.json");
+            using var reader = new StreamReader(stream);
+            return await reader.ReadToEndAsync();
+        }
+
         private readonly string ApiKey = new Func<string>(() =>
         {
-            var configJson = File.ReadAllText("config.json");
-            var config = JsonConvert.DeserializeObject<Dictionary<string, string>>(configJson);
+            //var path = Path.Combine(FileSystem.Current.AppDataDirectory, "config.json");
 
-            if (!config.TryGetValue("NASA_API_KEY", out var apiKey) || string.IsNullOrEmpty(apiKey))
-            {
-                throw new InvalidOperationException("API key not found in configuration.");
-            }
+                
+
+            //var config = JsonConvert.DeserializeObject<Dictionary<string, string>>(configJson);
+
+            //if (!config.TryGetValue("NASA_API_KEY", out var apiKey) || string.IsNullOrEmpty(apiKey))
+            //{
+            //    throw new InvalidOperationException("API key not found in configuration.");
+            //}
+            // WARNING DO NOT COMMIT
+            var apiKey = "WrV8X4gZmJWG4NE1gPbhgevbgJKfaiJ9fRe811hs";
             return apiKey;
         })();
 
-        private readonly SqliteService _sqliteService;
-        public ApodService(SqliteService sqliteService)
+        private readonly ISqliteService _sqliteService;
+        public ApodService(ISqliteService sqliteService)
         {
             _sqliteService = sqliteService;
             _httpClient = new HttpClient();

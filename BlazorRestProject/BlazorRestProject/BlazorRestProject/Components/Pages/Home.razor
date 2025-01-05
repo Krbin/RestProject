@@ -1,5 +1,36 @@
 ﻿@page "/"
+@using BlazorRestProject.Models
+@using BlazorRestProject.Services
+@inject ISqliteService sqliteService
 
-<h1>Hello, world!</h1>
+<div class="collection-view">
+    <div class="grid-items-layout" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+        <p>@ApodItems.ToString() hello @ApodItems.Count</p>
+        @foreach (var item in ApodItems)
+        {
+            <div class="frame" style="margin: 10px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border: 1px solid lightgray; width: 200px; height: 200px;">
+                <div class="grid" style="display: grid; grid-template-rows: 2fr 1fr;">
+                    <!-- Top 2/3: Image -->
+                    <img src="@item.Url" alt="Image" style="width: 100%; height: 100%; object-fit: cover; grid-row: 1;" />
 
-Welcome to your new app.
+                    <!-- Bottom 1/3: Title and Date -->
+                    <div class="stack-layout" style="background-color: rgba(0, 0, 0, 0.53); padding: 10px; display: flex; flex-direction: column; justify-content: center; grid-row: 2;">
+                        <p style="font-size: 10px; color: white; margin: 0;">@item.Year</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    // Declare a list to hold the data
+    List<ApodModel> ApodItems = new List<ApodModel>();
+
+    // Asynchronous method to fetch the data
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch data asynchronously and update the list
+        ApodItems.Add(await sqliteService.GetDataByPkAsync<ApodModel>(1));
+    } 
+}
