@@ -25,7 +25,13 @@
 
 @code {
     // Declare a list to hold the data
-    List<ApodModel> ApodItems = new List<ApodModel>();
+    ApodModel apodModel = new ApodModel();
+    apodModel.ExplanationEnglish = "This is a test";
+        apodModel.TitleEnglish = "test";
+        apodModel.Url = "https://apod.nasa.gov/apod/image/2501/Mimas_Cassini_1800.jpg";
+        apodModel.Year = "2025";
+    List<ApodModel> ApodItems = new List<ApodModel>() { apodModel };
+
 
     // Asynchronous method to fetch the data
     protected override async Task OnInitializedAsync()

@@ -3,6 +3,7 @@
 using BlazorRestProject.Models;
 using Newtonsoft.Json;
 using Microsoft.Maui.Storage;
+using System.Diagnostics;
 namespace BlazorRestProject.Services
 {
     public class ApodService
@@ -126,6 +127,9 @@ namespace BlazorRestProject.Services
                     foreach (var item in apodResponses)
                     {
                         apodModels.Add(CreateModelFromApodResponse(item));
+#if DEBUG
+                        Trace.WriteLine($"{response.Content.ToString()}");
+#endif
                     }
 
                     await _sqliteService.InsertAllDataAsync(apodModels);
