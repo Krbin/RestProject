@@ -32,7 +32,7 @@ namespace BlazorRestProject.Services
             //    throw new InvalidOperationException("API key not found in configuration.");
             //}
             // WARNING DO NOT COMMIT
-            var apiKey = "WrV8X4gZmJWG4NE1gPbhgevbgJKfaiJ9fRe811hs";
+            var apiKey = "";
             return apiKey;
         })();
 
