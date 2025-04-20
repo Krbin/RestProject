@@ -116,16 +116,3 @@ The application runs inside Docker containers managed by Laravel Sail for a cons
 
 You should now be able to search, browse, and view the NASA APOD entries!
 
-## Development
-
-*   **Frontend:** Keep `./vendor/bin/sail npm run dev` running in a terminal for automatic CSS/JS recompilation via Vite during development.
-*   **Sail Commands:** Use `./vendor/bin/sail <command>` instead of just `php artisan <command>` or `npm <command>` to run commands inside the correct Docker container (e.g., `./vendor/bin/sail test`, `./vendor/bin/sail tinker`).
-*   **Logs:** Check `storage/logs/laravel.log` for application logs and queue worker output.
-
-## Notes
-
-*   **Rate Limiting:** The default sync delay (`NASA_SYNC_DELAY_SECONDS`) is set conservatively for the `DEMO_KEY`. If you use your personal NASA API key, you likely have higher limits and can decrease this value (e.g., to 5-10 seconds) for faster syncing.
-*   **Error Handling:** Basic error handling and logging are implemented. More robust error reporting could be added.
-*   **Fuzzy Search:** Currently uses basic SQL `LIKE` search. For true fuzzy matching like the original request, integrate a PHP fuzzy search library (like `PHP-Fuzzy-Wuzzy` or similar) and implement it in the `ApodController` or a dedicated Search Service.
-*   **Performance:** For very large datasets (many years of APOD), database queries for grouping years/months might become slow. Consider caching query results (e.g., using Laravel Cache) or database optimizations.
-*   **Production:** For production deployment, ensure the queue worker is run reliably using Supervisor or a similar process manager. Protect the manual sync route (`/admin/sync-apod`) with authentication/authorization middleware. Consider using a more robust queue driver like Redis instead of `database`.
