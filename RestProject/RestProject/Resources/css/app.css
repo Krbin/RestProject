@@ -1,0 +1,387 @@
+/* ==========================================================================
+   Global Styles & Resets
+   ========================================================================== */
+
+html, body {
+    font-family: 'Open Sans', sans-serif; /* From MauiProgram.cs */
+    margin: 0;
+    padding: 0;
+    font-size: 16px; /* Base font size */
+    line-height: 1.5;
+    background-color: #f8f9fa; /* A slightly off-white background */
+    color: #343a40; /* Dark gray text for readability */
+    /* Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #212529; /* Darker heading color */
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem; /* Consistent padding */
+    font-weight: 600; /* Slightly bolder headings */
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+a {
+    color: #007bff; /* Standard bootstrap blue for links */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+    a:hover {
+        color: #0056b3; /* Darker blue on hover */
+        text-decoration: underline;
+    }
+
+button {
+    display: inline-block;
+    font-weight: 400;
+    color: #ffffff; /* White text on buttons */
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #007bff; /* Blue */
+    border: 1px solid #007bff;
+    padding: 0.5rem 1rem; /* Slightly smaller padding */
+    font-size: 0.95rem;
+    line-height: 1.5;
+    border-radius: 0.25rem; /* Standard border radius */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    button:hover:not(:disabled) {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #0062cc;
+    }
+
+    button:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); /* Focus ring */
+    }
+
+    button:disabled {
+        color: #fff;
+        background-color: #6c757d; /* Gray for disabled */
+        border-color: #6c757d;
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+/* Input field styling */
+input[type="search"],
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+    input[type="search"]:focus,
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+/* ==========================================================================
+   Layout Styles
+   ========================================================================== */
+
+.dynamic-grid {
+    display: grid;
+    /* Default to 2 columns, auto-fit for more */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem; /* Consistent gap */
+    padding: 1rem;
+}
+
+/* Specific grid column adjustments if needed */
+/* Example: Make month cards slightly wider */
+.month-view .dynamic-grid { /* If month view needs different grid */
+    /* grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); */
+}
+
+/* ==========================================================================
+   Card Styles (Image, Year, Month)
+   ========================================================================== */
+
+.image-card,
+.year-card,
+.month-card {
+    border: 1px solid #dee2e6; /* Lighter border */
+    border-radius: 0.3rem; /* Slightly larger radius */
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+}
+
+    .image-card:hover,
+    .year-card:hover,
+    .month-card:hover {
+        transform: translateY(-4px); /* Slightly more lift */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer, wider shadow */
+    }
+
+    /* Card Image Area */
+    .image-card img,
+    .year-card img,
+    .month-card img {
+        width: 100%;
+        height: 160px; /* Slightly taller image area */
+        object-fit: cover;
+        display: block;
+        background-color: #e9ecef; /* Placeholder background */
+        border-bottom: 1px solid #dee2e6; /* Separator line */
+    }
+
+        /* Image Loading Error */
+        .image-card img.img-error {
+            display: none; /* Hide broken image element */
+        }
+
+.img-error-overlay {
+    height: 160px; /* Match image height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red */
+    font-size: 0.9em;
+    font-weight: bold;
+    border-bottom: 1px solid #f5c6cb;
+}
+
+/* Card Placeholder */
+.card-placeholder {
+    height: 160px; /* Match image height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9ecef; /* Light gray */
+    color: #6c757d; /* Medium gray */
+    border-bottom: 1px solid #dee2e6;
+}
+
+    .card-placeholder .placeholder-icon {
+        font-size: 3em; /* Larger icon */
+        margin-bottom: 0.3rem;
+        opacity: 0.6;
+    }
+
+    .card-placeholder .placeholder-text {
+        font-size: 0.9em;
+        font-weight: 500; /* Medium weight */
+    }
+
+/* Card Information Section */
+.card-info {
+    padding: 0.8rem 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60px; /* Ensure minimum height for info section */
+}
+
+.card-title {
+    font-weight: 600; /* Bolder title */
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+    color: #343a40;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.card-date {
+    font-size: 0.75rem; /* Smaller date */
+    color: #6c757d; /* Gray date text */
+}
+
+/* Specific card type adjustments */
+.year-card .card-title {
+    font-size: 1.1rem;
+}
+
+.month-card .card-title {
+    font-size: 1rem;
+}
+
+/* ==========================================================================
+   View Specific Styles
+   ========================================================================== */
+
+/* Search View */
+.search-bar {
+    padding: 1rem;
+    background-color: #e9ecef;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 1rem; /* Space below search bar */
+}
+
+/* Sync Status */
+.sync-status {
+    background-color: #d1ecf1; /* Info blue background */
+    color: #0c5460; /* Info blue text */
+    padding: 0.75rem 1.25rem;
+    margin: 0 1rem 1rem 1rem;
+    text-align: center;
+    font-size: 0.9em;
+    border-radius: 0.25rem;
+    border: 1px solid #bee5eb;
+}
+
+/* Image Detail View */
+.image-detail-container {
+    padding: 1.5rem; /* More padding */
+    background-color: #ffffff;
+    margin: 1rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #dee2e6;
+}
+
+    .image-detail-container h2 {
+        padding: 0;
+        margin-top: 0;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .image-detail-container .detail-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.25rem;
+        margin-bottom: 1.5rem;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #eee; /* Subtle border around image */
+    }
+
+    .image-detail-container .explanation {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.7; /* Slightly more line spacing */
+        font-size: 0.95rem;
+        color: #495057; /* Slightly darker than default */
+    }
+
+    .image-detail-container p {
+        margin-bottom: 1rem;
+    }
+
+    .image-detail-container em { /* Style for date */
+        color: #6c757d;
+        font-size: 0.9em;
+        display: block; /* Put date on its own line below title */
+        margin-bottom: 1rem;
+    }
+
+    .image-detail-container a { /* Links within the detail view */
+        margin-left: 0; /* Reset margin */
+        font-weight: 500;
+    }
+
+.action-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.75rem; /* Space between buttons */
+    flex-wrap: wrap;
+}
+
+.status-message {
+    margin-top: 1rem;
+    font-size: 0.9em;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.25rem;
+    border: 1px solid transparent;
+    /* Default to success style */
+    color: #155724; /* Dark green */
+    background-color: #d4edda; /* Light green */
+    border-color: #c3e6cb;
+}
+
+    .status-message.error { /* Add class dynamically for errors */
+        color: #721c24; /* Dark red */
+        background-color: #f8d7da; /* Light red */
+        border-color: #f5c6cb;
+    }
+
+/* ==========================================================================
+   Utility Styles
+   ========================================================================== */
+
+.loading-indicator {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 1.1em;
+    color: #6c757d; /* Gray */
+    font-style: italic;
+}
+
+/* ==========================================================================
+   Blazor Error UI (from default template)
+   ========================================================================== */
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }

@@ -1,0 +1,3 @@
+images\browse_icon;images\browse_icon
+images\search_icon;images\search_icon
+raw\aboutassets;raw\AboutAssets

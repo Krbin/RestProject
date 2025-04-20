@@ -1,0 +1,9 @@
+C:\Users\Admin\source\repos\RestProject\RestProject\wwwroot\css\app.css
+C:\Users\Admin\source\repos\RestProject\RestProject\wwwroot\index.html
+C:\Users\Admin\source\repos\RestProject\RestProject\wwwroot\css\bootstrap\bootstrap.min.css
+C:\Users\Admin\source\repos\RestProject\RestProject\wwwroot\css\bootstrap\bootstrap.min.css.map
+wwwroot\css\app.css
+wwwroot\css\bootstrap\bootstrap.min.css
+wwwroot\css\bootstrap\bootstrap.min.css.map
+wwwroot\favicon.png
+wwwroot\index.html

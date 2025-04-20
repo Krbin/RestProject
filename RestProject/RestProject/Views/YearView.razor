@@ -1,0 +1,39 @@
+﻿@page "/year/{Year:int}"
+@inject ViewModels.YearViewModel ViewModel
+
+<h1>@ViewModel.Year - Browse by Month</h1>
+
+@if (ViewModel.IsLoading)
+{
+    <p class="loading-indicator">Loading months for @ViewModel.Year...</p> @* Added class for styling *@
+}
+else if (ViewModel.MonthGroups != null && ViewModel.MonthGroups.Any())
+{
+    <div class="dynamic-grid">
+        @* OrderBy is already done in ViewModel, but doesn't hurt here *@
+        @foreach (var monthGroup in ViewModel.MonthGroups.OrderBy(mg => mg.Month))
+        {
+            <Shared.MonthCard Year="ViewModel.Year"
+                              Month="monthGroup.Month"
+                              PreviewEntry="monthGroup.PreviewEntry"
+                              OnClickCallback="ViewModel.NavigateToMonth" />
+        }
+    </div>
+}
+else
+{
+    <p>No data found for this year.</p>
+}
+
+@code {
+    [Parameter] public int Year { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.Year = Year;
+        await ViewModel.LoadDataAsync();
+
+    }
+}
+
+@* Style moved to app.css *@

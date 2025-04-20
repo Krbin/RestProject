@@ -1,0 +1,146 @@
+﻿@page "/image/{DateString}"
+@inject ViewModels.ImageDetailViewModel ViewModel
+@using RestProject.Models
+@implements IDisposable  
+
+@if (ViewModel.IsLoading)
+{
+    <p class="loading-indicator">Loading image details...</p>
+}
+else if (ViewModel.Entry != null)
+{
+    <div class="image-detail-container">
+        <h2>@ViewModel.Entry.Title</h2>
+        <p><em>@ViewModel.Entry.Date</em></p>
+
+        @* Display Image, Video Link, or Other Media Info *@
+        @if (ViewModel.Entry.IsImage)
+        {
+            <img src="@ViewModel.Entry.Url"
+                 alt="@ViewModel.Entry.Title"
+                 class="detail-image"
+                 @onerror="HandleImageError" />
+            @if (imageLoadError) { <p class="status-message error">Failed to load image preview.</p> }
+
+            @if (!string.IsNullOrEmpty(ViewModel.Entry.HdUrl) && ViewModel.Entry.HdUrl != ViewModel.Entry.Url)
+            {
+                <p><a href="@ViewModel.Entry.HdUrl" target="_blank" rel="noopener noreferrer">View HD Image</a></p>
+            }
+        }
+        else if (ViewModel.Entry.MediaType == "video")
+        {
+            <p>
+                Video content: <a href="@ViewModel.Entry.Url" target="_blank" rel="noopener noreferrer">Watch Video</a>
+                <br />
+                <em>(Video playback might happen in an external browser/app)</em>
+            </p>
+            @* Embedding videos directly can be complex and platform-dependent *@
+        }
+        else
+        {
+            <p>
+                Media Type: @ViewModel.Entry.MediaType
+                <br />
+                URL: <a href="@ViewModel.Entry.Url" target="_blank" rel="noopener noreferrer">@ViewModel.Entry.Url</a>
+            </p>
+        }
+
+        <p class="explanation">@ViewModel.Entry.Explanation</p>
+
+        @if (!string.IsNullOrEmpty(ViewModel.Entry.Copyright))
+        {
+            <p><strong>Copyright:</strong> @ViewModel.Entry.Copyright</p>
+        }
+
+        <div class="action-buttons">
+            @if (ViewModel.Entry.IsImage)
+            {
+                @* Bind onclick to helper method, disabled to CanExecute helper *@
+                <button @onclick="HandleSaveClick" disabled="@(!CanSave())">
+                    @(ViewModel.IsBusy ? "Saving..." : "Save Image")
+                </button>
+            }
+            @* Bind onclick to helper method, disabled to CanExecute helper *@
+            <button @onclick="HandleShareClick" disabled="@(!CanShare())">
+                @(ViewModel.IsBusy ? "Sharing..." : "Share")
+            </button>
+        </div>
+
+        @* Display Status/Feedback Messages *@
+        @if (!string.IsNullOrEmpty(ViewModel.StatusMessage))
+        {
+            var statusClass = ViewModel.StatusMessage.Contains("Error", StringComparison.OrdinalIgnoreCase) ||
+                              ViewModel.StatusMessage.Contains("Failed", StringComparison.OrdinalIgnoreCase)
+                              ? "status-message error" : "status-message";
+            <p class="@statusClass">@ViewModel.StatusMessage</p>
+        }
+    </div>
+}
+else
+{
+    <p class="loading-indicator">Image data not found for date @DateString.</p>
+}
+
+@code {
+    [Parameter] public string DateString { get; set; } = ""; 
+
+    private bool imageLoadError = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        imageLoadError = false;
+
+        ViewModel.Date = DateString;
+        await ViewModel.LoadDataAsync();
+
+        ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+    }
+
+    private async Task HandleSaveClick()
+    {
+        if (CanSave()) 
+        {
+
+            ViewModel.SaveCommand.Execute(null);
+
+        }
+        await Task.CompletedTask; 
+    }
+
+    private async Task HandleShareClick()
+    {
+        if (CanShare()) 
+        {
+            ViewModel.ShareCommand.Execute(null);
+
+        }
+        await Task.CompletedTask; 
+    }
+
+    private bool CanSave() => ViewModel.SaveCommand?.CanExecute(null) ?? false;
+
+    private bool CanShare() => ViewModel.ShareCommand?.CanExecute(null) ?? false;
+
+    private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+
+        if (e.PropertyName == nameof(ViewModel.IsBusy) || e.PropertyName == nameof(ViewModel.Entry))
+        {
+
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private void HandleImageError()
+    {
+        imageLoadError = true;
+        InvokeAsync(StateHasChanged);
+        System.Diagnostics.Debug.WriteLine($"Detail image failed to load: {ViewModel?.Entry?.Url}");
+    }
+
+    public void Dispose()
+    {
+        ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
+    }
+}

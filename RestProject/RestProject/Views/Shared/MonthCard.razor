@@ -1,0 +1,69 @@
+﻿@using RestProject.Models
+@using System.Globalization
+
+@* Add title attribute for accessibility/hover *@
+<div class="month-card" @onclick="OnCardClick" title="Browse @MonthName @Year">
+    @if (PreviewEntry != null && PreviewEntry.IsImage && !string.IsNullOrEmpty(PreviewEntry.ThumbnailUrl))
+    {
+        <img src="@PreviewEntry.ThumbnailUrl"
+             alt="Preview for @MonthName"
+             loading="lazy"
+             @onerror="HandleImageError"
+             class="@(imageLoadError ? "img-error" : "")" />
+        @if (imageLoadError)
+        {
+            <div class="img-error-overlay">Load Failed</div>
+        }
+    }
+    else
+    {
+        @* Use the standard placeholder structure from app.css *@
+        <div class="card-placeholder">
+            <span class="placeholder-icon">🗓️</span> @* Different calendar icon example *@
+            <span class="placeholder-text">@MonthNameShort</span>
+        </div>
+    }
+    @* Use the standard card-info structure from app.css *@
+    <div class="card-info">
+        <div class="card-title">@MonthName</div>
+        @* Optionally add date of preview entry if desired for context *@
+        @* <div class="card-date">@PreviewEntry?.Date</div> *@
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Year { get; set; }
+    [Parameter] public int Month { get; set; }
+    [Parameter] public ApodEntry PreviewEntry { get; set; }
+    [Parameter] public EventCallback<(int Year, int Month)> OnClickCallback { get; set; }
+
+    private string MonthName => Month > 0 && Month <= 12 ? CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month) : "Invalid Month";
+    private string MonthNameShort => Month > 0 && Month <= 12 ? CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(Month) : "Inv";
+
+    private bool imageLoadError = false;
+
+    protected override void OnParametersSet()
+    {
+
+        imageLoadError = false;
+    }
+
+    private async Task OnCardClick()
+    {
+
+        if (OnClickCallback.HasDelegate)
+        {
+
+            await OnClickCallback.InvokeAsync((Year, Month));
+        }
+    }
+
+    private void HandleImageError()
+    {
+        imageLoadError = true;
+        InvokeAsync(StateHasChanged);
+        System.Diagnostics.Debug.WriteLine($"Preview image failed to load for month {Month}/{Year}: {PreviewEntry?.ThumbnailUrl}");
+    }
+}
+
+@* Style moved to app.css *@

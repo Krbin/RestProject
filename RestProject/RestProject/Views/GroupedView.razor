@@ -1,0 +1,38 @@
+﻿@page "/year/{Year:int}"
+@inject ViewModels.YearViewModel ViewModel
+
+<h1>@ViewModel.Year - Browse by Month</h1>
+
+ @if (ViewModel.IsLoading) { <p>Loading months for @ViewModel.Year...</p> }
+else if (ViewModel.MonthGroups != null && ViewModel.MonthGroups.Any())
+{
+    <div class="dynamic-grid">
+
+        @foreach (var monthGroup in ViewModel.MonthGroups.OrderBy(mg => mg.Month))
+        {
+            <Shared.MonthCard Year="ViewModel.Year"
+                              Month="monthGroup.Month"
+                              PreviewEntry="monthGroup.PreviewEntry"
+                              OnClickCallback="ViewModel.NavigateToMonth" />
+        }
+    </div>
+} else { <p>No data found for this year.</p> }
+
+@code {
+    [Parameter] public int Year { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.Year = Year; 
+        await ViewModel.LoadDataAsync();
+        await base.OnInitializedAsync();
+    }
+}
+
+ <style>
+    .dynamic-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+        gap: 10px;
+    }
+</style>

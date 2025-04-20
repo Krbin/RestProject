@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RestProject.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RestProject"
+    xmlns:views="clr-namespace:RestProject.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="NASA APOD Gallery">
+
+    <!-- This TabBar creates the bottom navigation -->
+    <TabBar>
+        <ShellContent
+            Title="Search"
+            ContentTemplate="{DataTemplate views:SearchView}"
+            Route="SearchView"
+            Icon="search_icon.png"/>
+        <!-- Add search_icon.png to Resources/Images -->
+
+        <ShellContent
+            Title="Browse"
+            ContentTemplate="{DataTemplate views:GroupedView}"
+            Route="GroupedView"
+            Icon="browse_icon.png"/>
+        <!-- Add browse_icon.png to Resources/Images -->
+    </TabBar>
+
+</Shell>

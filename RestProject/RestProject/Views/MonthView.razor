@@ -1,0 +1,39 @@
+﻿@page "/month/{Year:int}/{Month:int}"
+@inject ViewModels.MonthViewModel ViewModel
+@using System.Globalization
+
+<h1>@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ViewModel.Month) @ViewModel.Year</h1>
+
+@if (ViewModel.IsLoading)
+{
+    <p class="loading-indicator">Loading images...</p> @* Added class for styling *@
+}
+else if (ViewModel.Entries != null && ViewModel.Entries.Any())
+{
+    <div class="dynamic-grid">
+        @* OrderBy is already done in ViewModel, but doesn't hurt here *@
+        @foreach (var entry in ViewModel.Entries.OrderByDescending(e => e.Date))
+        {
+             <Shared.ImageCard ApodItem="entry" OnClickCallback="ViewModel.NavigateToDetail" />
+        }
+    </div>
+}
+else
+{
+    <p>No images found for this month.</p>
+}
+
+@code {
+    [Parameter] public int Year { get; set; }
+    [Parameter] public int Month { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.Year = Year;
+        ViewModel.Month = Month;
+        await ViewModel.LoadDataAsync();
+        // await base.OnInitializedAsync();
+    }
+}
+
+@* Style moved to app.css *@

@@ -1,0 +1,35 @@
+﻿@page "/grouped"
+@inject ViewModels.GroupedViewModel ViewModel
+@using Models
+
+<h1>Browse by Year</h1>
+
+@if (ViewModel.IsLoading) { <p>Loading years...</p> }
+else if (ViewModel.YearGroups != null && ViewModel.YearGroups.Any())
+{
+    <div class="dynamic-grid">
+
+        @foreach (var yearGroup in ViewModel.YearGroups.OrderByDescending(yg => yg.Year))
+        {
+             <Shared.YearCard Year="yearGroup.Year"
+                              PreviewEntry="yearGroup.PreviewEntry"
+                              OnClickCallback="ViewModel.NavigateToYear" />
+        }
+    </div>
+} else { <p>No data found. Database might be syncing.</p> }
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await ViewModel.LoadDataAsync();
+        await base.OnInitializedAsync();
+    }
+}
+
+ <style>
+    .dynamic-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+        gap: 10px;
+    }
+</style>

@@ -1,0 +1,58 @@
+﻿@using RestProject.Models
+
+<div class="image-card" @onclick="OnCardClick" title="@(ApodItem?.Title)">
+    @if (ApodItem != null && ApodItem.IsImage && !string.IsNullOrEmpty(ApodItem.ThumbnailUrl))
+    {
+            <img src="@ApodItem.ThumbnailUrl"
+                 alt="@ApodItem.Title"
+                 loading="lazy"
+                 @onerror="HandleImageError"
+                 class="@(imageLoadError ? "img-error" : "")" />
+        @if (imageLoadError)
+        {
+                    <div class="img-error-overlay">Load Failed</div>
+        }
+    }
+    else
+    {
+            <!-- Placeholder for non-images or items without a thumbnail -->
+            <div class="card-placeholder">
+                <span class="placeholder-icon">🖼️</span> <!-- Simple icon -->
+                 <span class="placeholder-text">@(ApodItem?.MediaType ?? "No Preview")</span>
+            </div>
+    }
+    <div class="card-info">
+        <div class="card-title">@(ApodItem?.Title ?? "No Title")</div>
+        <div class="card-date">@(ApodItem?.Date ?? "No Date")</div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public ApodEntry ApodItem { get; set; }
+    // CHANGE: Parameter is now a simple EventCallback. The parent will decide what to do.
+    [Parameter] public EventCallback<ApodEntry> OnClickCallback { get; set; }
+
+    private bool imageLoadError = false;
+
+    protected override void OnParametersSet()
+    {
+        imageLoadError = false;
+    }
+
+    private async Task OnCardClick()
+    {
+        // Invoke the callback, passing the ApodItem
+        if (OnClickCallback.HasDelegate && ApodItem != null)
+        {
+            await OnClickCallback.InvokeAsync(ApodItem);
+        }
+    }
+
+    // Handle cases where the image fails to load
+    private void HandleImageError()
+    {
+        imageLoadError = true;
+        StateHasChanged(); // Notify Blazor to re-render with error state
+        System.Diagnostics.Debug.WriteLine($"Image failed to load: {ApodItem?.ThumbnailUrl}");
+    }
+}
